@@ -646,7 +646,7 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
       <li><a href="#ctf">CTF</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="nav-cta" id="navDownload" href="145068-Kali%20Vignesh%20SM-CSE.pdf" >⬇ RESUME.PDF</a>
+    <a class="nav-cta" id="navDownload" href="145068-Kali%20Vignesh%20SM-CSE.pdf" download="resume.pdf">⬇ RESUME.PDF</a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -1132,11 +1132,15 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
   "use strict";
 
   /* ---------- inject embedded assets ---------- */
-  var RESUME_DATA_URI = "data:application/pdf;base64,RESUME_BASE64_PLACEHOLDER";
-  ["navDownload","heroDownload","contactDownload"].forEach(function(id){
+var RESUME_URL = "145068-Kali%20Vignesh%20SM-CSE.pdf";
+
+["navDownload","heroDownload","contactDownload"].forEach(function(id){
     var el = document.getElementById(id);
-    if(el) el.setAttribute("href", RESUME_DATA_URI);
-  });
+    if(el){
+        el.href = RESUME_URL;
+        el.target = "_blank";
+    }
+});
 
   /* ---------- mobile nav toggle ---------- */
   var navToggle = document.getElementById("navToggle");
