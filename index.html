@@ -536,6 +536,60 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
 .secret-body .dim{color:var(--text-dim);}
 .secret-close{position:absolute;top:14px;right:18px;color:var(--text-dim);font-size:20px;cursor:pointer;}
 
+   /* Interactive Terminal */
+
+#terminal-output{
+    min-height:250px;
+    max-height:320px;
+    overflow-y:auto;
+    white-space:pre-wrap;
+    font-family:Consolas, monospace;
+    color:var(--teal);
+    padding-bottom:10px;
+}
+
+.terminal-input-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+}
+
+.terminal-input-line span{
+    color:var(--teal);
+    font-family:Consolas, monospace;
+    font-size:14px;
+    white-space:nowrap;
+}
+
+.terminal-input-line input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:white;
+    font-family:Consolas, monospace;
+    font-size:14px;
+    caret-color:var(--teal);
+}
+
+.terminal-input-line input::placeholder{
+    color:rgba(255,255,255,0.3);
+}
+
+#terminal-output div{
+    margin-bottom:6px;
+}
+
+#terminal-output::-webkit-scrollbar{
+    width:6px;
+}
+
+#terminal-output::-webkit-scrollbar-thumb{
+    background:var(--teal);
+    border-radius:4px;
+}
+
 /* ===================================================================
    17. RESPONSIVE
    =================================================================== */
@@ -1056,17 +1110,21 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
   <div class="secret-box">
     <div class="secret-bar"><span></span><span></span><span></span></div>
     <div class="secret-body">
-      <div>root@kvs-secops:~# whoami</div>
-      <div>&gt; Kali Vignesh S.M — Cybersecurity Researcher</div>
-      <div class="dim">&nbsp;</div>
-      <div>root@kvs-secops:~# cat easter_egg.txt</div>
-      <div>&gt; PSST!! You found the hidden console. Respect. 🐉</div>
-      <div>&gt; Fun fact: I am a gamer nerd.Ever since i played my first game in my potato pc, i wanted to be a videogame developer and still do .</div>
-      <div class="dim">&nbsp;</div>
-      <div>root@kvs-secops:~# echo "thanks for scrolling this far"</div>
-      <div class="dim">press ESC or click outside to close</div>
+    <div id="terminal-output">
+        <div>Welcome to KVS Secure Console v1.0</div>
+        <div>Type <span style="color:#00e5ff">help</span> to begin.</div>
+        <br>
     </div>
-  </div>
+    <div class="terminal-input-line">
+        <span>root@kvs-secops:~#</span>
+        <input
+            id="terminalInput"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+        >
+    </div>
+</div>
 </div>
 
 <script>
@@ -1209,26 +1267,280 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
   });
 
   /* ---------- konami code easter egg ---------- */
-  var seq = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
-  var pos = 0;
-  var modal = document.getElementById("secretModal");
-  document.addEventListener("keydown", function(e){
-    var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-    if(key === seq[pos]){
-      pos++;
-      if(pos === seq.length){ modal.classList.add("open"); pos = 0; }
-    } else {
-      pos = (key === seq[0]) ? 1 : 0;
-    }
-    if(e.key === "Escape"){ modal.classList.remove("open"); }
-  });
-  modal.addEventListener("click", function(e){
-    if(e.target === modal){ modal.classList.remove("open"); }
-  });
-  document.getElementById("konamiHint").addEventListener("click", function(){
-    modal.classList.add("open");
-  });
+ var seq = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
 
+var pos = 0;
+var modal = document.getElementById("secretModal");
+
+document.addEventListener("keydown", function(e){
+
+    var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+
+    if(key === seq[pos]){
+
+        pos++;
+
+        if(pos === seq.length){
+
+            modal.classList.add("open");
+
+            setTimeout(function(){
+                document.getElementById("terminalInput").focus();
+            },100);
+
+            pos = 0;
+        }
+
+    }else{
+
+        pos = (key === seq[0]) ? 1 : 0;
+
+    }
+
+    if(e.key === "Escape"){
+        modal.classList.remove("open");
+    }
+
+});
+
+modal.addEventListener("click", function(e){
+
+    if(e.target === modal){
+        modal.classList.remove("open");
+    }
+
+});
+
+document.getElementById("konamiHint").addEventListener("click", function(){
+
+    modal.classList.add("open");
+
+    setTimeout(function(){
+        document.getElementById("terminalInput").focus();
+    },100);
+
+});
+const input = document.getElementById("terminalInput");
+const output = document.getElementById("terminal-output");
+
+const history = [];
+let historyIndex = -1;
+
+const commands = {
+
+help: `
+Available Commands
+
+whoami
+about
+skills
+projects
+resume
+cve
+contact
+ls
+pwd
+history
+neofetch
+cat easter_egg.txt
+clear
+`,
+
+whoami: `
+Kali Vignesh S.M
+Cybersecurity Researcher
+CTF Player
+Security Researcher
+`,
+
+about: `
+Passionate Cybersecurity Researcher.
+
+Interested in:
+
+• Vulnerability Assessment
+• Penetration Testing
+• Security Research
+• Web Security
+• CTF Challenges
+`,
+
+skills: `
+Python
+Linux
+Java
+ReactJS
+Networking
+OWASP
+OpenCV
+CTF
+`,
+
+projects: `
+SPARA
+GoPhish Simulation
+BookMyShow Automation
+`,
+
+pwd: `
+/home/kali
+`,
+
+ls: `
+projects/
+resume.pdf
+certificates/
+cve.txt
+easter_egg.txt
+contact.txt
+`,
+
+history: history.join("\n"),
+
+contact: `
+Email:
+kali.vignesh409@gmail.com
+`,
+
+resume: `
+Opening Resume...
+`,
+
+cve: `
+CVE-2026-41037
+
+Responsible Disclosure
+
+Opening Official CVE...
+`,
+
+neofetch: `
+       /\\
+      /  \\
+     / /\\ \\
+    / ____ \\
+   /_/    \\_\\
+
+Kali Vignesh S.M
+
+-------------------------
+OS : Kali Linux
+Role : Cybersecurity Researcher
+CTFs : Active
+Research : Vulnerability Assessment
+Language : Python, Java
+CVE : CVE-2026-41037
+-------------------------
+`,
+
+"cat easter_egg.txt": `
+🎉 Congratulations!
+
+You found the hidden console.
+
+Here's something most visitors won't see.
+
+I started my journey because I fell in love with video games.
+
+Ever since I played my first game on my old potato PC, I dreamed of becoming a game developer.
+
+Although cybersecurity became my career path, that passion for understanding how software works is what eventually led me into ethical hacking, CTFs, and vulnerability research.
+
+If you're a recruiter reading this...
+
+Thanks for taking the time to explore my portfolio.
+
+Have an awesome day! 🚀
+`
+};
+
+input.addEventListener("keydown",function(e){
+
+if(e.key==="ArrowUp"){
+
+if(history.length){
+
+historyIndex=Math.max(0,historyIndex-1);
+
+input.value=history[historyIndex];
+
+}
+
+e.preventDefault();
+
+return;
+
+}
+
+if(e.key==="ArrowDown"){
+
+if(history.length){
+
+historyIndex=Math.min(history.length,historyIndex+1);
+
+if(historyIndex===history.length){
+
+input.value="";
+
+}else{
+
+input.value=history[historyIndex];
+
+}
+
+}
+
+e.preventDefault();
+
+return;
+
+}
+
+if(e.key!=="Enter") return;
+
+const cmd=input.value.trim();
+
+history.push(cmd);
+
+historyIndex=history.length;
+
+output.innerHTML+=`<div><span style="color:#00e5ff">root@kvs-secops:~#</span> ${cmd}</div>`;
+
+if(cmd==="clear"){
+
+output.innerHTML="";
+
+}
+
+else if(commands[cmd]){
+
+output.innerHTML+=`<div>${commands[cmd]}</div>`;
+
+if(cmd==="resume"){
+
+window.open("resume.pdf","_blank");
+
+}
+
+if(cmd==="cve"){
+
+window.open("https://www.cve.org/CVERecord?id=CVE-2026-41037","_blank");
+
+}
+
+}
+
+else{
+
+output.innerHTML+=`<div style="color:#ff5c7a">Command not found. Type help.</div>`;
+
+}
+
+output.scrollTop=output.scrollHeight;
+
+input.value="";
+
+});
 })();
 </script>
 </body>
