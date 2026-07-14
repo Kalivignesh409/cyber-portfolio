@@ -646,7 +646,7 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
       <li><a href="#ctf">CTF</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="nav-cta" id="navDownload" href="#" download="Kali_Vignesh_SM_Resume.pdf">⬇ RESUME.PDF</a>
+    <a class="nav-cta" id="navDownload" href="Kali_Vignesh_SM_Resume.pdf" download="Kali_Vignesh_SM_Resume.pdf">⬇ RESUME.PDF</a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -1084,11 +1084,11 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .6 3a2 2 0 01-.5 2L8 10a16 16 0 006 6l1.3-1.3a2 2 0 012-.4c1 .3 2 .5 3 .6a2 2 0 011.7 2z"/></svg>
           +91 93454 38282
         </a>
-        <a class="contact-item" href="https://www.linkedin.com/in/kalivignesh/" onclick="return false;">
+        <a class="contact-item" href="https://www.linkedin.com/in/kalivignesh/" >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           Kali Vignesh S.M
         </a>
-        <a class="contact-item" id="contactDownload" href="#" download="145068-Kali Vignesh SM-CSE.pdf">
+        <a class="contact-item" id="contactDownload" href="145068-Kali Vignesh SM-CSE.pdf" download="145068-Kali Vignesh SM-CSE.pdf">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
           Download Resume
         </a>
@@ -1102,7 +1102,7 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
      ============================================================ -->
 <footer>
   <div class="wrap">
-    <p class="prompt"><b>root@kvs-secops</b>:~$ <span class="type-here" id="konamiHint">try the konami code </span></p>
+    <p class="prompt"><b>root@kvs-secops</b>:~$ <span class="type-here" id="konamiHint">try the konami code</span></p>
   </div>
 </footer>
 
@@ -1111,12 +1111,12 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
     <div class="secret-bar"><span></span><span></span><span></span></div>
     <div class="secret-body">
     <div id="terminal-output">
-        <div>Welcome to KVS Secure Console v1.0</div>
+        <div>Welcome to KVSM Secure Console v1.0</div>
         <div>Type <span style="color:#00e5ff">help</span> to begin.</div>
         <br>
     </div>
     <div class="terminal-input-line">
-        <span>root@kvs-secops:~#</span>
+        <span>root@kvsm-secops:~#</span>
         <input
             id="terminalInput"
             type="text"
@@ -1311,15 +1311,7 @@ modal.addEventListener("click", function(e){
 
 });
 
-document.getElementById("konamiHint").addEventListener("click", function(){
 
-    modal.classList.add("open");
-
-    setTimeout(function(){
-        document.getElementById("terminalInput").focus();
-    },100);
-
-});
 const input = document.getElementById("terminalInput");
 const output = document.getElementById("terminal-output");
 
@@ -1415,11 +1407,12 @@ Opening Official CVE...
 `,
 
 neofetch: `
-       /\\
-      /  \\
-     / /\\ \\
-    / ____ \\
-   /_/    \\_\\
+██╗  ██╗
+██║ ██╔╝
+█████╔╝
+██╔═██╗
+██║  ██╗
+╚═╝  ╚═╝
 
 Kali Vignesh S.M
 
@@ -1518,7 +1511,7 @@ output.innerHTML+=`<div>${commands[cmd]}</div>`;
 
 if(cmd==="resume"){
 
-window.open("resume.pdf","_blank");
+window.open("145068-Kali Vignesh SM-CSE.pdf","_blank");
 
 }
 
