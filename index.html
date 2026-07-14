@@ -1131,16 +1131,6 @@ footer .prompt .type-here{color:var(--cyan);cursor:pointer;border-bottom:1px das
 (function(){
   "use strict";
 
-  /* ---------- inject embedded assets ---------- */
-var RESUME_URL = "145068-Kali%20Vignesh%20SM-CSE.pdf";
-
-["navDownload","heroDownload","contactDownload"].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el){
-        el.href = RESUME_URL;
-        el.target = "_blank";
-    }
-});
 
   /* ---------- mobile nav toggle ---------- */
   var navToggle = document.getElementById("navToggle");
